@@ -1,4 +1,4 @@
-﻿name: Daily Digest
+name: Daily Digest
 
 on:
   schedule:
@@ -14,14 +14,14 @@ jobs:
         with:
           python-version: '3.11'
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: pip install -r stock-scanner/requirements.txt
       - name: Run daily digest
         env:
           EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
           EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
           EMAIL_TO: ${{ secrets.EMAIL_TO }}
           DIGEST_MODE: daily
-        run: python main.py
+        run: python stock-scanner/main.py
       - name: Save data files
         run: |
           git config --local user.email "action@github.com"

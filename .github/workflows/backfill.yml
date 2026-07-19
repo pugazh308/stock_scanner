@@ -1,4 +1,4 @@
-﻿name: Historical Backfill
+name: Historical Backfill
 
 on:
   workflow_dispatch:
@@ -13,13 +13,13 @@ jobs:
         with:
           python-version: '3.11'
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: pip install -r stock-scanner/requirements.txt
       - name: Run historical backfill
         env:
           EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
           EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
           EMAIL_TO: ${{ secrets.EMAIL_TO }}
-        run: python backfill_historical.py
+        run: python stock-scanner/backfill_historical.py
       - name: Save model and data files
         run: |
           git config --local user.email "action@github.com"

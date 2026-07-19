@@ -1,4 +1,4 @@
-﻿name: Test Digest
+name: Test Digest
 
 on:
   workflow_dispatch:
@@ -13,14 +13,14 @@ jobs:
         with:
           python-version: '3.11'
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: pip install -r stock-scanner/requirements.txt
       - name: Run test digest
         env:
           EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
           EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
           EMAIL_TO: ${{ secrets.EMAIL_TO }}
           DIGEST_MODE: test
-        run: python main.py
+        run: python stock-scanner/main.py
       - name: Save data files
         run: |
           git config --local user.email "action@github.com"
