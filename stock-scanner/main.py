@@ -1,12 +1,4 @@
-"""
-Entry point. Run with: python main.py --mode daily|weekly|monthly
-
-Pulls insider buying data, cross-references with cluster buys, computes
-momentum stats via yfinance, scores/ranks everything, emails the digest,
-and logs the picks so the learning loop can check back on them later.
-"""
-
-import argparse
+﻿import argparse
 import sys
 
 from scanner.fetch_insider import get_insider_buys, get_cluster_buys
@@ -21,6 +13,11 @@ def run(mode, top_n=15):
 
     insider_df = get_insider_buys(mode)
     print(f"Fetched {len(insider_df)} insider purchase rows.")
+
+    if insider_df.empty:
+        print("No insider purchases found. Sending empty digest.")
+        send_email([], mode)
+        return
 
     cluster_tickers = get_cluster_buys()
     print(f"Found {len(cluster_tickers)} cluster-buy tickers.")
@@ -45,5 +42,7 @@ if __name__ == "__main__":
     try:
         run(args.mode, top_n=args.top_n)
     except Exception as e:
+        import traceback
         print(f"ERROR: {e}", file=sys.stderr)
+        traceback.print_exc()
         sys.exit(1)

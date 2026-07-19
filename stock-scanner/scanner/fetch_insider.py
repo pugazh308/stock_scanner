@@ -1,7 +1,6 @@
 ﻿"""
 Fetches insider-buying data directly from SEC EDGAR Form 4 filings.
-No OpenInsider needed. SEC.gov is always reachable from GitHub Actions.
-SEC explicitly allows programmatic access with a proper User-Agent.
+Uses SEC EDGAR EFTS search + JSON filing index for reliable XML discovery.
 """
 
 import requests
@@ -12,57 +11,59 @@ import time
 import re
 
 SEC_HEADERS = {
-    "User-Agent": "StockResearchBot research.bot@gmail.com",
+    "User-Agent": "StockResearchBot research@example.com",
     "Accept-Encoding": "gzip, deflate",
 }
 
-EDGAR_BASE  = "https://www.sec.gov"
-EDGAR_SEARCH = "https://efts.sec.gov/LATEST/search-index"
+EDGAR_BASE   = "https://www.sec.gov"
+EFTS_SEARCH  = "https://efts.sec.gov/LATEST/search-index"
 
 
-def _search_form4(days_back=3):
+def _search_form4(days_back=5):
     end   = datetime.today()
     start = end - timedelta(days=max(days_back, 1))
     params = {
-        "forms": "4",
-        "dateRange": "custom",
-        "startdt": start.strftime("%Y-%m-%d"),
-        "enddt":   end.strftime("%Y-%m-%d"),
+        "forms":      "4",
+        "dateRange":  "custom",
+        "startdt":    start.strftime("%Y-%m-%d"),
+        "enddt":      end.strftime("%Y-%m-%d"),
+        "hits.hits.total.value": 100,
     }
-    resp = requests.get(
-        EDGAR_SEARCH,
-        headers={**SEC_HEADERS, "Host": "efts.sec.gov"},
-        params=params,
-        timeout=30,
-    )
+    print(f"[EDGAR] Searching {start.strftime('%Y-%m-%d')} to {end.strftime('%Y-%m-%d')}")
+    resp = requests.get(EFTS_SEARCH, headers=SEC_HEADERS, params=params, timeout=30)
     resp.raise_for_status()
-    return resp.json().get("hits", {}).get("hits", [])
+    data = resp.json()
+    hits = data.get("hits", {}).get("hits", [])
+    print(f"[EDGAR] Raw hits: {len(hits)}")
+    return hits
 
 
-def _cik_from_accession(accession_no):
-    """CIK is the first segment of the accession number."""
-    parts = accession_no.split("-")
-    return parts[0].lstrip("0") or "0" if parts else None
-
-
-def _xml_urls_from_index(cik, accession_no):
+def _get_xml_url(cik, accession_no):
+    """Use the JSON filing index to reliably find the primary XML document."""
     acc_clean = accession_no.replace("-", "")
-    index_url = f"{EDGAR_BASE}/Archives/edgar/data/{cik}/{acc_clean}/{accession_no}-index.htm"
+    json_url  = f"{EDGAR_BASE}/Archives/edgar/data/{cik}/{acc_clean}/{accession_no}-index.json"
     try:
-        resp = requests.get(index_url, headers=SEC_HEADERS, timeout=20)
+        time.sleep(0.1)
+        resp = requests.get(json_url, headers=SEC_HEADERS, timeout=15)
         if resp.status_code != 200:
-            return []
-        found = re.findall(
-            r'/Archives/edgar/data/\d+/\d+/([^"\'<>\s]+\.xml)',
-            resp.text,
-        )
-        return [
-            f"{EDGAR_BASE}/Archives/edgar/data/{cik}/{acc_clean}/{f}"
-            for f in found
-            if "index" not in f.lower()
-        ]
-    except Exception:
-        return []
+            return None
+        items = resp.json().get("items", [])
+        for item in items:
+            name = item.get("name", "")
+            doc_type = item.get("type", "")
+            # Primary Form 4 XML - not the index itself
+            if (name.endswith(".xml") and
+                "index" not in name.lower() and
+                doc_type in ("4", "4/A", "")):
+                return f"{EDGAR_BASE}/Archives/edgar/data/{cik}/{acc_clean}/{name}"
+        # Fallback: any non-index XML
+        for item in items:
+            name = item.get("name", "")
+            if name.endswith(".xml") and "index" not in name.lower():
+                return f"{EDGAR_BASE}/Archives/edgar/data/{cik}/{acc_clean}/{name}"
+    except Exception as e:
+        print(f"[EDGAR] Index error for {accession_no}: {e}")
+    return None
 
 
 def _parse_form4(xml_url):
@@ -71,84 +72,99 @@ def _parse_form4(xml_url):
         resp = requests.get(xml_url, headers=SEC_HEADERS, timeout=20)
         if resp.status_code != 200:
             return []
+        content = resp.content.decode("utf-8", errors="ignore")
+
+        # Try direct parse first
         try:
             root = ET.fromstring(resp.content)
         except ET.ParseError:
-            text = resp.content.decode("utf-8", errors="ignore")
-            m = re.search(r"(<ownershipDocument.*?</ownershipDocument>)", text, re.DOTALL)
+            m = re.search(r"(<ownershipDocument.*?</ownershipDocument>)", content, re.DOTALL)
             if not m:
                 return []
             root = ET.fromstring(m.group(1))
-    except Exception:
+
+        ticker_el = root.find(".//issuerTradingSymbol")
+        ticker = (ticker_el.text or "").strip().upper() if ticker_el is not None else ""
+        if not ticker or not re.match(r"^[A-Z]{1,6}$", ticker):
+            return []
+
+        name_el  = root.find(".//rptOwnerName")
+        title_el = root.find(".//officerTitle")
+        insider  = (name_el.text  or "Unknown").strip() if name_el  is not None else "Unknown"
+        title    = (title_el.text or "").strip()         if title_el is not None else ""
+        period   = (root.findtext(".//periodOfReport") or "").strip()
+
+        rows = []
+        for txn in root.findall(".//nonDerivativeTransaction"):
+            code = (txn.findtext(".//transactionCode") or "").strip()
+            if code != "P":
+                continue
+            try:
+                shares = float((txn.findtext(".//transactionShares/value")        or "0").replace(",", ""))
+                price  = float((txn.findtext(".//transactionPricePerShare/value") or "0").replace(",", ""))
+                date   = (txn.findtext(".//transactionDate/value") or period).strip()
+            except ValueError:
+                continue
+            value = shares * price
+            if value < 1000:
+                continue
+            rows.append({
+                "FilingDate":   period,
+                "TradeDate":    date,
+                "Ticker":       ticker,
+                "Insider":      insider,
+                "Title":        title,
+                "TradeType":    "P - Purchase",
+                "Price":        round(price, 4),
+                "Qty":          shares,
+                "Value":        round(value, 2),
+                "OwnChangePct": 0.0,
+            })
+        return rows
+
+    except Exception as e:
+        print(f"[EDGAR] Parse error {xml_url}: {e}")
         return []
-
-    ticker_el = root.find(".//issuerTradingSymbol")
-    ticker = (ticker_el.text or "").strip().upper() if ticker_el is not None else ""
-    if not ticker or not re.match(r"^[A-Z]{1,5}$", ticker):
-        return []
-
-    name_el  = root.find(".//rptOwnerName")
-    title_el = root.find(".//officerTitle")
-    insider  = (name_el.text  or "Unknown").strip() if name_el  is not None else "Unknown"
-    title    = (title_el.text or "").strip()         if title_el is not None else ""
-
-    period_el   = root.find(".//periodOfReport")
-    filing_date = (period_el.text or "").strip() if period_el is not None else ""
-
-    rows = []
-    for txn in root.findall(".//nonDerivativeTransaction"):
-        code = (txn.findtext(".//transactionCode") or "").strip()
-        if code != "P":
-            continue
-        try:
-            shares = float((txn.findtext(".//transactionShares/value")         or "0").replace(",", ""))
-            price  = float((txn.findtext(".//transactionPricePerShare/value")  or "0").replace(",", ""))
-            date   = (txn.findtext(".//transactionDate/value") or filing_date).strip()
-        except ValueError:
-            continue
-        value = shares * price
-        if value < 1000:
-            continue
-        rows.append({
-            "FilingDate":    filing_date,
-            "TradeDate":     date,
-            "Ticker":        ticker,
-            "Insider":       insider,
-            "Title":         title,
-            "TradeType":     "P - Purchase",
-            "Price":         round(price, 4),
-            "Qty":           shares,
-            "Value":         round(value, 2),
-            "OwnChangePct":  0.0,
-        })
-    return rows
 
 
 def get_insider_buys(mode="daily"):
-    days_map = {"daily": 2, "weekly": 7, "monthly": 30, "test": 5}
-    days_back = days_map.get(mode, 2)
-    print(f"[EDGAR] Searching Form 4 filings ({days_back}d)...")
+    days_map  = {"daily": 3, "weekly": 7, "monthly": 30, "test": 7}
+    days_back = days_map.get(mode, 3)
+    print(f"[EDGAR] Mode={mode}, days_back={days_back}")
+
     try:
         hits = _search_form4(days_back)
     except Exception as e:
-        print(f"[EDGAR] Search error: {e}")
+        print(f"[EDGAR] Search failed: {e}")
         return pd.DataFrame()
 
-    print(f"[EDGAR] {len(hits)} filings found")
-    all_rows = []
-    for hit in hits[:80]:
+    all_rows  = []
+    attempted = 0
+    for hit in hits[:100]:
         src = hit.get("_source", {})
         acc = src.get("accession_no", "")
         if not acc:
             continue
-        cik = _cik_from_accession(acc)
+
+        # Try to get CIK from source directly, fall back to parsing accession
+        cik = str(src.get("entity_id", "") or src.get("cik", "") or "").strip().lstrip("0")
+        if not cik:
+            parts = acc.split("-")
+            cik   = parts[0].lstrip("0") if parts else ""
         if not cik:
             continue
-        for xml_url in _xml_urls_from_index(cik, acc)[:1]:
-            all_rows.extend(_parse_form4(xml_url))
+
+        xml_url = _get_xml_url(cik, acc)
+        if not xml_url:
+            continue
+
+        attempted += 1
+        rows = _parse_form4(xml_url)
+        all_rows.extend(rows)
+
+    print(f"[EDGAR] Attempted {attempted} XMLs, found {len(all_rows)} purchase rows")
 
     if not all_rows:
-        print("[EDGAR] No purchases found.")
         return pd.DataFrame()
 
     df = pd.DataFrame(all_rows)
@@ -170,22 +186,28 @@ def get_cluster_buys():
 
 
 def get_historical_buys(days_back=365, min_value_k=25, max_pages=10):
-    print(f"[EDGAR] Historical backfill: {days_back} days...")
+    print(f"[EDGAR] Historical backfill: {days_back} days")
     try:
         hits = _search_form4(days_back)
     except Exception as e:
-        print(f"[EDGAR] Historical error: {e}")
+        print(f"[EDGAR] Historical search failed: {e}")
         return pd.DataFrame()
 
-    min_val = min_value_k * 1000
+    min_val  = min_value_k * 1000
     all_rows = []
     for hit in hits[:300]:
         src = hit.get("_source", {})
         acc = src.get("accession_no", "")
-        cik = _cik_from_accession(acc) if acc else None
+        if not acc:
+            continue
+        cik = str(src.get("entity_id", "") or "").strip().lstrip("0")
+        if not cik:
+            parts = acc.split("-")
+            cik   = parts[0].lstrip("0") if parts else ""
         if not cik:
             continue
-        for xml_url in _xml_urls_from_index(cik, acc)[:1]:
+        xml_url = _get_xml_url(cik, acc)
+        if xml_url:
             all_rows.extend([r for r in _parse_form4(xml_url) if r.get("Value", 0) >= min_val])
 
     if not all_rows:
