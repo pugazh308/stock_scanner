@@ -5,3 +5,5 @@ pandas
 yfinance
 scikit-learn
 joblib
+
+cloudscraper
