@@ -6,4 +6,3 @@ yfinance
 scikit-learn
 joblib
 
-cloudscraper
