@@ -1,6 +1,7 @@
-﻿import argparse
+import argparse
 import sys
 import traceback
+import os
 
 from scanner.fetch_insider import get_insider_buys, get_cluster_buys
 from scanner.momentum import get_momentum_stats
@@ -41,7 +42,7 @@ def run(mode, top_n=15):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--mode", choices=["daily", "weekly", "monthly"], default="daily")
+    parser.add_argument("--mode", choices=["daily", "weekly", "monthly", "test"], default=os.environ.get("DIGEST_MODE", "daily"))
     parser.add_argument("--top-n", type=int, default=15)
     args = parser.parse_args()
 

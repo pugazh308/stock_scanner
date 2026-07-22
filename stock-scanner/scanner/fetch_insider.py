@@ -1,4 +1,4 @@
-﻿"""
+"""
 Fetches insider-buying data directly from SEC EDGAR Form 4 filings.
 Uses SEC EDGAR RSS feed - most reliable method for GitHub Actions.
 """
@@ -55,24 +55,20 @@ def _parse_index_url(index_url):
     return None, None
 
 
-def _get_xml_url(cik, accession_no):
-    acc_clean = accession_no.replace("-", "")
-    json_url = f"{EDGAR_BASE}/Archives/edgar/data/{cik}/{acc_clean}/{accession_no}-index.json"
+def _get_xml_url(index_url):
     try:
-        resp = requests.get(json_url, headers=SEC_HEADERS, timeout=15)
+        resp = requests.get(index_url, headers=SEC_HEADERS, timeout=15)
         if resp.status_code != 200:
             return None
-        for item in resp.json().get("items", []):
-            name = item.get("name", "")
-            dtype = item.get("type", "")
-            if name.endswith(".xml") and "index" not in name.lower() and dtype in ("4", "4/A", ""):
-                return f"{EDGAR_BASE}/Archives/edgar/data/{cik}/{acc_clean}/{name}"
-        for item in resp.json().get("items", []):
-            name = item.get("name", "")
-            if name.endswith(".xml") and "index" not in name.lower():
-                return f"{EDGAR_BASE}/Archives/edgar/data/{cik}/{acc_clean}/{name}"
+        links = re.findall(r'href="([^"]+\.xml)"', resp.text)
+        xml_links = [l for l in links if "xsl" not in l.lower()]
+        if xml_links:
+            link = xml_links[0]
+            if link.startswith("http"):
+                return link
+            return f"{EDGAR_BASE}{link}"
     except Exception as e:
-        print(f"[EDGAR] Index error {accession_no}: {e}")
+        print(f"[EDGAR] Index HTML error for {index_url}: {e}")
     return None
 
 
@@ -146,16 +142,13 @@ def get_insider_buys(mode="daily"):
     all_rows = []
     attempted = 0
     for index_url in urls:
-        cik, acc = _parse_index_url(index_url)
-        if not cik or not acc:
-            continue
-        xml_url = _get_xml_url(cik, acc)
+        xml_url = _get_xml_url(index_url)
         if not xml_url:
             continue
         attempted += 1
         all_rows.extend(_parse_form4(xml_url))
 
-    print(f"[EDGAR] Parsed {attempted} XMLs → {len(all_rows)} purchase transactions")
+    print(f"[EDGAR] Parsed {attempted} XMLs -> {len(all_rows)} purchase transactions")
 
     if not all_rows:
         return pd.DataFrame()
@@ -184,10 +177,7 @@ def get_historical_buys(days_back=365, min_value_k=25, max_pages=10):
     min_val = min_value_k * 1000
     all_rows = []
     for index_url in urls:
-        cik, acc = _parse_index_url(index_url)
-        if not cik or not acc:
-            continue
-        xml_url = _get_xml_url(cik, acc)
+        xml_url = _get_xml_url(index_url)
         if xml_url:
             all_rows.extend([r for r in _parse_form4(xml_url) if r.get("Value", 0) >= min_val])
     if not all_rows:
