@@ -1,0 +1,19 @@
+[
+  {
+    "date_picked": "2026-07-22",
+    "mode": "test",
+    "ticker": "BOLD",
+    "score": 36.73,
+    "price_at_pick": 2.48,
+    "spy_price_at_pick": 748.28,
+    "is_cluster": false,
+    "avg_title_weight": 2.0,
+    "value_component": 0.2244,
+    "insider_score": 0.4488,
+    "momentum_score": 36.286,
+    "rel_strength_1m_at_pick": 76.62,
+    "evaluated": false,
+    "outcome_return_pct": null,
+    "outcome_rel_to_spy_pct": null
+  }
+]
