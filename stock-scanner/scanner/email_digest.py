@@ -71,7 +71,7 @@ def build_html(ranked, mode):
         {rows}
       </table>
       <p style="color:#999;font-size:12px;margin-top:20px;">
-        Data: SEC Form 4 filings via openinsider.com, prices via Yahoo Finance.
+        Data: SEC Form 4 filings via SEC EDGAR, prices via Yahoo Finance.
         Generated automatically -- always do your own research before trading.
       </p>
     </body>
