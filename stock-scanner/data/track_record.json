@@ -83,5 +83,39 @@
     "evaluated": false,
     "outcome_return_pct": null,
     "outcome_rel_to_spy_pct": null
+  },
+  {
+    "date_picked": "2026-07-24",
+    "mode": "daily",
+    "ticker": "ARTV",
+    "score": 81.15,
+    "price_at_pick": 10.13,
+    "spy_price_at_pick": null,
+    "is_cluster": false,
+    "avg_title_weight": 4.0,
+    "value_component": 20,
+    "insider_score": 80.0,
+    "momentum_score": 1.154,
+    "rel_strength_1m_at_pick": 8.69,
+    "evaluated": false,
+    "outcome_return_pct": null,
+    "outcome_rel_to_spy_pct": null
+  },
+  {
+    "date_picked": "2026-07-24",
+    "mode": "daily",
+    "ticker": "BRTMU",
+    "score": 29.88,
+    "price_at_pick": 9.95,
+    "spy_price_at_pick": null,
+    "is_cluster": false,
+    "avg_title_weight": 1.5,
+    "value_component": 20,
+    "insider_score": 30.0,
+    "momentum_score": -0.12,
+    "rel_strength_1m_at_pick": -0.2,
+    "evaluated": false,
+    "outcome_return_pct": null,
+    "outcome_rel_to_spy_pct": null
   }
 ]
