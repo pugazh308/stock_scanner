@@ -24,6 +24,8 @@ jobs:
           EMAIL_TO: ${{ secrets.EMAIL_TO }}
           DIGEST_MODE: daily
         run: python stock-scanner/main.py
+      - name: Evaluate and learn (US)
+        run: python stock-scanner/evaluate_and_learn.py
       - name: Save data files
         run: |
           git config --local user.email "action@github.com"

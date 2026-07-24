@@ -24,6 +24,8 @@ jobs:
           EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
           EMAIL_TO: ${{ secrets.EMAIL_TO }}
         run: python stock-scanner/main_nse.py
+      - name: Evaluate NSE pick outcomes
+        run: python stock-scanner/evaluate_nse_picks.py
       - name: Save data files
         run: |
           git config --local user.email "action@github.com"
