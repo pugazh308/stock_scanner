@@ -1,0 +1,33 @@
+name: NSE Daily Digest
+
+on:
+  schedule:
+    - cron: '0 11 * * 1-5'
+  workflow_dispatch: {}
+
+jobs:
+  nse-daily:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: pip install -r stock-scanner/requirements.txt
+      - name: Run NSE daily watchlist
+        env:
+          EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
+          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
+        run: python stock-scanner/main_nse.py
+      - name: Save data files
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add -A
+          git diff --staged --quiet || git commit -m "chore: update NSE data [skip ci]"
+          git push
