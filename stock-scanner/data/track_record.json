@@ -151,5 +151,39 @@
     "evaluated": false,
     "outcome_return_pct": null,
     "outcome_rel_to_spy_pct": null
+  },
+  {
+    "date_picked": "2026-07-27",
+    "mode": "weekly",
+    "ticker": "GDTC",
+    "score": 1.17,
+    "price_at_pick": 0.88,
+    "spy_price_at_pick": 738.18,
+    "is_cluster": false,
+    "avg_title_weight": 2.0,
+    "value_component": 6.0,
+    "insider_score": 12.0,
+    "momentum_score": -10.833,
+    "rel_strength_1m_at_pick": -11.78,
+    "evaluated": false,
+    "outcome_return_pct": null,
+    "outcome_rel_to_spy_pct": null
+  },
+  {
+    "date_picked": "2026-07-27",
+    "mode": "weekly",
+    "ticker": "GLSI",
+    "score": -9.82,
+    "price_at_pick": 13.19,
+    "spy_price_at_pick": 738.18,
+    "is_cluster": false,
+    "avg_title_weight": 6.0,
+    "value_component": 0.9404,
+    "insider_score": 5.6422,
+    "momentum_score": -15.465,
+    "rel_strength_1m_at_pick": -39.4,
+    "evaluated": false,
+    "outcome_return_pct": null,
+    "outcome_rel_to_spy_pct": null
   }
 ]
