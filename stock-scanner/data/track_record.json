@@ -270,5 +270,22 @@
     "evaluated": false,
     "outcome_return_pct": null,
     "outcome_rel_to_spy_pct": null
+  },
+  {
+    "date_picked": "2026-07-31",
+    "mode": "daily",
+    "ticker": "NMM",
+    "score": 25.02,
+    "price_at_pick": 79.27,
+    "spy_price_at_pick": 741.69,
+    "is_cluster": false,
+    "avg_title_weight": 3.0,
+    "value_component": 5.01,
+    "insider_score": 15.0301,
+    "momentum_score": 9.993,
+    "rel_strength_1m_at_pick": 12.13,
+    "evaluated": false,
+    "outcome_return_pct": null,
+    "outcome_rel_to_spy_pct": null
   }
 ]
