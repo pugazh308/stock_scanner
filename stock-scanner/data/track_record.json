@@ -287,5 +287,39 @@
     "evaluated": false,
     "outcome_return_pct": null,
     "outcome_rel_to_spy_pct": null
+  },
+  {
+    "date_picked": "2026-08-01",
+    "mode": "monthly",
+    "ticker": "STRR",
+    "score": -5.0,
+    "price_at_pick": 10.8,
+    "spy_price_at_pick": 747.03,
+    "is_cluster": false,
+    "avg_title_weight": 1.5,
+    "value_component": 0.1944,
+    "insider_score": 0.2916,
+    "momentum_score": -5.288,
+    "rel_strength_1m_at_pick": -2.03,
+    "evaluated": false,
+    "outcome_return_pct": null,
+    "outcome_rel_to_spy_pct": null
+  },
+  {
+    "date_picked": "2026-08-01",
+    "mode": "monthly",
+    "ticker": "XAIR",
+    "score": -23.39,
+    "price_at_pick": 5.275,
+    "spy_price_at_pick": 747.03,
+    "is_cluster": false,
+    "avg_title_weight": 1.5,
+    "value_component": 4.0,
+    "insider_score": 6.0,
+    "momentum_score": -29.39,
+    "rel_strength_1m_at_pick": -43.95,
+    "evaluated": false,
+    "outcome_return_pct": null,
+    "outcome_rel_to_spy_pct": null
   }
 ]
