@@ -12,13 +12,17 @@ from scanner.store import load_json, save_json, DATA_DIR
 NSE_TRACK_FILE = os.path.join(DATA_DIR, "nse_track_record.json")
 
 
-def record_picks(ranked, nifty_price_at_pick=None):
+def record_picks(ranked, nifty_price_at_pick=None, strategy="momentum"):
+    """strategy tags each pick ("momentum" or "buy_level") so the two
+    approaches' hit rates can be compared against each other later --
+    that comparison is the whole point of running both side by side."""
     records = load_json(NSE_TRACK_FILE, [])
     today = date.today().isoformat()
 
     for r in ranked:
         records.append({
             "date_picked": today,
+            "strategy": strategy,
             "ticker": r["ticker"],
             "score": r["score"],
             "entry_price": r.get("last_close"),

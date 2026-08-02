@@ -33,8 +33,28 @@ def _fmt_inr(v):
     return f"₹{v:,.2f}"
 
 
-def build_html(ranked):
+def _buy_level_rows(buy_ranked):
+    rows = ""
+    for r in buy_ranked:
+        rows += f"""
+        <tr>
+          <td style="padding:8px;border-bottom:1px solid #eee;"><b>{r['ticker']}</b></td>
+          <td style="padding:8px;border-bottom:1px solid #eee;">{_fmt_inr(r['last_close'])}</td>
+          <td style="padding:8px;border-bottom:1px solid #eee;">-{r['drawdown_pct']:.1f}%</td>
+          <td style="padding:8px;border-bottom:1px solid #eee;">+{r['above_low_pct']:.1f}%</td>
+          <td style="padding:8px;border-bottom:1px solid #eee;">{r['rsi14']:.0f}</td>
+          <td style="padding:8px;border-bottom:1px solid #eee;">{r['_basing']:.0f}</td>
+          <td style="padding:8px;border-bottom:1px solid #eee;">{r['_hammer_signal']:.0f}</td>
+          <td style="padding:8px;border-bottom:1px solid #eee;"><b>{r['score']}</b></td>
+        </tr>"""
+    if not rows:
+        rows = "<tr><td colspan='8' style='padding:12px;'>No qualifying buy-level setups today.</td></tr>"
+    return rows
+
+
+def build_html(ranked, buy_ranked=None):
     today = date.today().isoformat()
+    buy_ranked = buy_ranked or []
 
     rows = ""
     for r in ranked:
@@ -78,6 +98,31 @@ def build_html(ranked):
         </tr>
         {rows}
       </table>
+
+      <h2 style="margin-top:32px;">Buy-Level Watchlist (Fallen Quality)</h2>
+      <p style="color:#555;">
+        The inverse screen: liquid names 25-60% off their 52-week high,
+        within 25% of the 52-week low, RSI under 55, ranked on reversal
+        evidence -- volatility contraction vs the decline phase, down-day
+        volume drying up, 20DMA reclaim progress, and hammer candles at
+        the lows. <b>These are NOT entries.</b> Set alerts, then wait for
+        a confirmed bullish daily candle at support with volume at or
+        above the 10-day average before trading anything here.
+      </p>
+      <table style="border-collapse:collapse;width:100%;font-size:14px;">
+        <tr style="background:#f5f5f5;text-align:left;">
+          <th style="padding:8px;">Ticker</th>
+          <th style="padding:8px;">Last Price</th>
+          <th style="padding:8px;">Off 52w High</th>
+          <th style="padding:8px;">Above 52w Low</th>
+          <th style="padding:8px;">RSI</th>
+          <th style="padding:8px;">Basing</th>
+          <th style="padding:8px;">Hammer</th>
+          <th style="padding:8px;">Score</th>
+        </tr>
+        {_buy_level_rows(buy_ranked)}
+      </table>
+
       <p style="color:#999;font-size:12px;margin-top:20px;">
         Data: NSE (NIFTY 500 universe), prices via Yahoo Finance. This is a
         price-action shortlist only -- ask directly for the 10-point
@@ -91,7 +136,7 @@ def build_html(ranked):
     return html
 
 
-def send_email(ranked):
+def send_email(ranked, buy_ranked=None):
     sender = os.environ["EMAIL_FROM"]
     password = os.environ["EMAIL_PASSWORD"]
     recipient = os.environ.get("EMAIL_TO", sender)
@@ -103,7 +148,7 @@ def send_email(ranked):
     msg["From"] = sender
     msg["To"] = recipient
 
-    html_body = build_html(ranked)
+    html_body = build_html(ranked, buy_ranked)
     msg.attach(MIMEText(html_body, "html"))
 
     with smtplib.SMTP(smtp_host, smtp_port) as server:
@@ -111,4 +156,5 @@ def send_email(ranked):
         server.login(sender, password)
         server.sendmail(sender, recipient, msg.as_string())
 
-    print(f"[NSE] Sent daily watchlist to {recipient} with {len(ranked)} tickers.")
+    print(f"[NSE] Sent daily digest to {recipient}: "
+          f"{len(ranked)} momentum + {len(buy_ranked or [])} buy-level tickers.")
