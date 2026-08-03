@@ -7,7 +7,7 @@ import os
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from datetime import date
+from datetime import date, datetime
 
 import yfinance as yf
 
@@ -18,6 +18,30 @@ def _company_name(ticker):
         return info.get("longName") or info.get("shortName") or ticker
     except Exception:
         return ticker
+
+
+def _upcoming_result_date(ticker, within_days=5):
+    """Next earnings/results date for `ticker` if it falls within `within_days`, else None."""
+    try:
+        cal = yf.Ticker(f"{ticker}.NS").calendar
+        earnings_dates = cal.get("Earnings Date") if isinstance(cal, dict) else None
+        if not earnings_dates:
+            return None
+        today = date.today()
+        for d in earnings_dates:
+            if isinstance(d, datetime):
+                d = d.date()
+            if 0 <= (d - today).days <= within_days:
+                return d
+        return None
+    except Exception:
+        return None
+
+
+def _fmt_result_date(d):
+    if not d:
+        return "-"
+    return f"<b>{d.strftime('%d-%b')}</b>"
 
 
 def _fmt_pct(v):
@@ -36,6 +60,7 @@ def _fmt_inr(v):
 def _buy_level_rows(buy_ranked):
     rows = ""
     for r in buy_ranked:
+        result_date = _upcoming_result_date(r["ticker"])
         rows += f"""
         <tr>
           <td style="padding:8px;border-bottom:1px solid #eee;"><b>{r['ticker']}</b></td>
@@ -46,9 +71,10 @@ def _buy_level_rows(buy_ranked):
           <td style="padding:8px;border-bottom:1px solid #eee;">{r['_basing']:.0f}</td>
           <td style="padding:8px;border-bottom:1px solid #eee;">{r['_hammer_signal']:.0f}</td>
           <td style="padding:8px;border-bottom:1px solid #eee;"><b>{r['score']}</b></td>
+          <td style="padding:8px;border-bottom:1px solid #eee;">{_fmt_result_date(result_date)}</td>
         </tr>"""
     if not rows:
-        rows = "<tr><td colspan='8' style='padding:12px;'>No qualifying buy-level setups today.</td></tr>"
+        rows = "<tr><td colspan='9' style='padding:12px;'>No qualifying buy-level setups today.</td></tr>"
     return rows
 
 
@@ -59,6 +85,7 @@ def build_html(ranked, buy_ranked=None):
     rows = ""
     for r in ranked:
         company = _company_name(r["ticker"])
+        result_date = _upcoming_result_date(r["ticker"])
         rows += f"""
         <tr>
           <td style="padding:8px;border-bottom:1px solid #eee;"><b>{r['ticker']}</b></td>
@@ -69,10 +96,11 @@ def build_html(ranked, buy_ranked=None):
           <td style="padding:8px;border-bottom:1px solid #eee;">{r['vol_breakout_ratio']:.2f}x</td>
           <td style="padding:8px;border-bottom:1px solid #eee;">{r['pct_off_52w_high']:.1f}%</td>
           <td style="padding:8px;border-bottom:1px solid #eee;"><b>{r['score']}</b></td>
+          <td style="padding:8px;border-bottom:1px solid #eee;">{_fmt_result_date(result_date)}</td>
         </tr>"""
 
     if not rows:
-        rows = "<tr><td colspan='8' style='padding:12px;'>No qualifying stocks found today.</td></tr>"
+        rows = "<tr><td colspan='9' style='padding:12px;'>No qualifying stocks found today.</td></tr>"
 
     html = f"""
     <html>
@@ -95,6 +123,7 @@ def build_html(ranked, buy_ranked=None):
           <th style="padding:8px;">Vol Breakout</th>
           <th style="padding:8px;">Off 52w High</th>
           <th style="padding:8px;">Score</th>
+          <th style="padding:8px;">Result in 5d</th>
         </tr>
         {rows}
       </table>
@@ -119,6 +148,7 @@ def build_html(ranked, buy_ranked=None):
           <th style="padding:8px;">Basing</th>
           <th style="padding:8px;">Hammer</th>
           <th style="padding:8px;">Score</th>
+          <th style="padding:8px;">Result in 5d</th>
         </tr>
         {_buy_level_rows(buy_ranked)}
       </table>
