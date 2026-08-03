@@ -321,5 +321,39 @@
     "evaluated": false,
     "outcome_return_pct": null,
     "outcome_rel_to_spy_pct": null
+  },
+  {
+    "date_picked": "2026-08-03",
+    "mode": "weekly",
+    "ticker": "VFC",
+    "score": 30.6,
+    "price_at_pick": 14.32,
+    "spy_price_at_pick": 747.03,
+    "is_cluster": false,
+    "avg_title_weight": 2.5,
+    "value_component": 9.855,
+    "insider_score": 24.6376,
+    "momentum_score": 5.967,
+    "rel_strength_1m_at_pick": -12.45,
+    "evaluated": false,
+    "outcome_return_pct": null,
+    "outcome_rel_to_spy_pct": null
+  },
+  {
+    "date_picked": "2026-08-03",
+    "mode": "weekly",
+    "ticker": "FTAI",
+    "score": 25.39,
+    "price_at_pick": 206.0,
+    "spy_price_at_pick": 747.03,
+    "is_cluster": false,
+    "avg_title_weight": 2.5,
+    "value_component": 9.9629,
+    "insider_score": 24.9072,
+    "momentum_score": 0.486,
+    "rel_strength_1m_at_pick": -17.26,
+    "evaluated": false,
+    "outcome_return_pct": null,
+    "outcome_rel_to_spy_pct": null
   }
 ]
