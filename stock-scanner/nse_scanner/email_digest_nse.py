@@ -43,12 +43,13 @@ def _buy_level_rows(buy_ranked):
           <td style="padding:8px;border-bottom:1px solid #eee;">-{r['drawdown_pct']:.1f}%</td>
           <td style="padding:8px;border-bottom:1px solid #eee;">+{r['above_low_pct']:.1f}%</td>
           <td style="padding:8px;border-bottom:1px solid #eee;">{r['rsi14']:.0f}</td>
+          <td style="padding:8px;border-bottom:1px solid #eee;">{r['vol_breakout_ratio']:.2f}x</td>
           <td style="padding:8px;border-bottom:1px solid #eee;">{r['_basing']:.0f}</td>
           <td style="padding:8px;border-bottom:1px solid #eee;">{r['_hammer_signal']:.0f}</td>
           <td style="padding:8px;border-bottom:1px solid #eee;"><b>{r['score']}</b></td>
         </tr>"""
     if not rows:
-        rows = "<tr><td colspan='8' style='padding:12px;'>No qualifying buy-level setups today.</td></tr>"
+        rows = "<tr><td colspan='9' style='padding:12px;'>No qualifying buy-level setups today.</td></tr>"
     return rows
 
 
@@ -102,7 +103,8 @@ def build_html(ranked, buy_ranked=None):
       <h2 style="margin-top:32px;">Buy-Level Watchlist (Fallen Quality)</h2>
       <p style="color:#555;">
         The inverse screen: liquid names 25-60% off their 52-week high,
-        within 25% of the 52-week low, RSI under 55, ranked on reversal
+        within 25% of the 52-week low, RSI under 55, today's volume at
+        least 2x the trailing 20-day average, ranked on reversal
         evidence -- volatility contraction vs the decline phase, down-day
         volume drying up, 20DMA reclaim progress, and hammer candles at
         the lows. <b>These are NOT entries.</b> Set alerts, then wait for
@@ -116,6 +118,7 @@ def build_html(ranked, buy_ranked=None):
           <th style="padding:8px;">Off 52w High</th>
           <th style="padding:8px;">Above 52w Low</th>
           <th style="padding:8px;">RSI</th>
+          <th style="padding:8px;">Vol Breakout</th>
           <th style="padding:8px;">Basing</th>
           <th style="padding:8px;">Hammer</th>
           <th style="padding:8px;">Score</th>
