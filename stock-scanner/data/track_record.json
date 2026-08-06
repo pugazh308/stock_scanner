@@ -46,9 +46,9 @@
     "insider_score": 70.6875,
     "momentum_score": 250.58,
     "rel_strength_1m_at_pick": 19.55,
-    "evaluated": false,
-    "outcome_return_pct": null,
-    "outcome_rel_to_spy_pct": null
+    "evaluated": true,
+    "outcome_return_pct": -1.55,
+    "outcome_rel_to_spy_pct": -4.55
   },
   {
     "date_picked": "2026-07-23",
@@ -63,9 +63,9 @@
     "insider_score": 15.1933,
     "momentum_score": -1.301,
     "rel_strength_1m_at_pick": -0.33,
-    "evaluated": false,
-    "outcome_return_pct": null,
-    "outcome_rel_to_spy_pct": null
+    "evaluated": true,
+    "outcome_return_pct": 6.35,
+    "outcome_rel_to_spy_pct": 3.36
   },
   {
     "date_picked": "2026-07-23",
@@ -80,9 +80,9 @@
     "insider_score": 5.01,
     "momentum_score": -14.665,
     "rel_strength_1m_at_pick": -13.0,
-    "evaluated": false,
-    "outcome_return_pct": null,
-    "outcome_rel_to_spy_pct": null
+    "evaluated": true,
+    "outcome_return_pct": 4.17,
+    "outcome_rel_to_spy_pct": 1.17
   },
   {
     "date_picked": "2026-07-24",
