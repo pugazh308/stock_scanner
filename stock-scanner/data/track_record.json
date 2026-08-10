@@ -131,9 +131,9 @@
     "insider_score": 12.0,
     "momentum_score": 519.744,
     "rel_strength_1m_at_pick": -0.63,
-    "evaluated": false,
-    "outcome_return_pct": null,
-    "outcome_rel_to_spy_pct": null
+    "evaluated": true,
+    "outcome_return_pct": -17.07,
+    "outcome_rel_to_spy_pct": -21.72
   },
   {
     "date_picked": "2026-07-27",
@@ -148,9 +148,9 @@
     "insider_score": 5.6422,
     "momentum_score": -9.717,
     "rel_strength_1m_at_pick": -29.82,
-    "evaluated": false,
-    "outcome_return_pct": null,
-    "outcome_rel_to_spy_pct": null
+    "evaluated": true,
+    "outcome_return_pct": 10.63,
+    "outcome_rel_to_spy_pct": 5.99
   },
   {
     "date_picked": "2026-07-27",
@@ -165,9 +165,9 @@
     "insider_score": 12.0,
     "momentum_score": -10.833,
     "rel_strength_1m_at_pick": -11.78,
-    "evaluated": false,
-    "outcome_return_pct": null,
-    "outcome_rel_to_spy_pct": null
+    "evaluated": true,
+    "outcome_return_pct": -6.7,
+    "outcome_rel_to_spy_pct": -11.46
   },
   {
     "date_picked": "2026-07-27",
@@ -182,9 +182,9 @@
     "insider_score": 5.6422,
     "momentum_score": -15.465,
     "rel_strength_1m_at_pick": -39.4,
-    "evaluated": false,
-    "outcome_return_pct": null,
-    "outcome_rel_to_spy_pct": null
+    "evaluated": true,
+    "outcome_return_pct": 8.87,
+    "outcome_rel_to_spy_pct": 4.12
   },
   {
     "date_picked": "2026-07-28",
@@ -403,6 +403,57 @@
     "insider_score": 0.0259,
     "momentum_score": -8.525,
     "rel_strength_1m_at_pick": -2.24,
+    "evaluated": false,
+    "outcome_return_pct": null,
+    "outcome_rel_to_spy_pct": null
+  },
+  {
+    "date_picked": "2026-08-10",
+    "mode": "daily",
+    "ticker": "ATTO",
+    "score": 33.81,
+    "price_at_pick": 20.17,
+    "spy_price_at_pick": 773.26,
+    "is_cluster": false,
+    "avg_title_weight": 2.0,
+    "value_component": 20,
+    "insider_score": 40.0,
+    "momentum_score": -6.192,
+    "rel_strength_1m_at_pick": -10.32,
+    "evaluated": false,
+    "outcome_return_pct": null,
+    "outcome_rel_to_spy_pct": null
+  },
+  {
+    "date_picked": "2026-08-10",
+    "mode": "daily",
+    "ticker": "NMM",
+    "score": 14.68,
+    "price_at_pick": 79.35,
+    "spy_price_at_pick": 773.26,
+    "is_cluster": false,
+    "avg_title_weight": 3.0,
+    "value_component": 5.0234,
+    "insider_score": 15.0702,
+    "momentum_score": -0.394,
+    "rel_strength_1m_at_pick": 2.33,
+    "evaluated": false,
+    "outcome_return_pct": null,
+    "outcome_rel_to_spy_pct": null
+  },
+  {
+    "date_picked": "2026-08-10",
+    "mode": "daily",
+    "ticker": "LARK",
+    "score": 6.6,
+    "price_at_pick": 31.98,
+    "spy_price_at_pick": 773.26,
+    "is_cluster": false,
+    "avg_title_weight": 2.0,
+    "value_component": 0.6353,
+    "insider_score": 1.2707,
+    "momentum_score": 5.329,
+    "rel_strength_1m_at_pick": 2.67,
     "evaluated": false,
     "outcome_return_pct": null,
     "outcome_rel_to_spy_pct": null
