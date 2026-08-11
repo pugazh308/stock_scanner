@@ -199,9 +199,9 @@
     "insider_score": 60.0,
     "momentum_score": 8.533,
     "rel_strength_1m_at_pick": 10.06,
-    "evaluated": false,
-    "outcome_return_pct": null,
-    "outcome_rel_to_spy_pct": null
+    "evaluated": true,
+    "outcome_return_pct": 1.4,
+    "outcome_rel_to_spy_pct": -3.19
   },
   {
     "date_picked": "2026-07-28",
@@ -216,9 +216,9 @@
     "insider_score": 2.9248,
     "momentum_score": -8.562,
     "rel_strength_1m_at_pick": -14.27,
-    "evaluated": false,
-    "outcome_return_pct": null,
-    "outcome_rel_to_spy_pct": null
+    "evaluated": true,
+    "outcome_return_pct": 32.18,
+    "outcome_rel_to_spy_pct": 27.59
   },
   {
     "date_picked": "2026-07-29",
@@ -505,6 +505,23 @@
     "insider_score": 1.2707,
     "momentum_score": 5.329,
     "rel_strength_1m_at_pick": 2.67,
+    "evaluated": false,
+    "outcome_return_pct": null,
+    "outcome_rel_to_spy_pct": null
+  },
+  {
+    "date_picked": "2026-08-11",
+    "mode": "daily",
+    "ticker": "LTGO",
+    "score": 19.11,
+    "price_at_pick": 18.56,
+    "spy_price_at_pick": 773.03,
+    "is_cluster": false,
+    "avg_title_weight": 1.0,
+    "value_component": 20,
+    "insider_score": 20.0,
+    "momentum_score": -0.894,
+    "rel_strength_1m_at_pick": -1.49,
     "evaluated": false,
     "outcome_return_pct": null,
     "outcome_rel_to_spy_pct": null
