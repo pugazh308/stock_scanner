@@ -233,9 +233,9 @@
     "insider_score": 60.0,
     "momentum_score": -10.05,
     "rel_strength_1m_at_pick": -16.75,
-    "evaluated": false,
-    "outcome_return_pct": null,
-    "outcome_rel_to_spy_pct": null
+    "evaluated": true,
+    "outcome_return_pct": 30.08,
+    "outcome_rel_to_spy_pct": 26.07
   },
   {
     "date_picked": "2026-07-29",
@@ -250,7 +250,7 @@
     "insider_score": 2.974,
     "momentum_score": 0.0,
     "rel_strength_1m_at_pick": null,
-    "evaluated": false,
+    "evaluated": true,
     "outcome_return_pct": null,
     "outcome_rel_to_spy_pct": null
   },
@@ -522,6 +522,23 @@
     "insider_score": 20.0,
     "momentum_score": -0.894,
     "rel_strength_1m_at_pick": -1.49,
+    "evaluated": false,
+    "outcome_return_pct": null,
+    "outcome_rel_to_spy_pct": null
+  },
+  {
+    "date_picked": "2026-08-12",
+    "mode": "daily",
+    "ticker": "FEMY",
+    "score": 1.36,
+    "price_at_pick": null,
+    "spy_price_at_pick": 770.56,
+    "is_cluster": true,
+    "avg_title_weight": 1.3333,
+    "value_component": 0.68,
+    "insider_score": 1.36,
+    "momentum_score": 0.0,
+    "rel_strength_1m_at_pick": null,
     "evaluated": false,
     "outcome_return_pct": null,
     "outcome_rel_to_spy_pct": null
