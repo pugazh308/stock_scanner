@@ -5,17 +5,18 @@ import argparse
 from nse_scanner.fetch_prices import fetch_universe_history
 from nse_scanner.screener import compute_metrics, rank_candidates
 from nse_scanner.buy_level_screener import compute_buy_level_metrics, rank_buy_level
+from nse_scanner.ema_breakout_screener import compute_ema_breakout_metrics, rank_ema_breakout
 from nse_scanner.email_digest_nse import send_email
 from nse_scanner.track_record import record_picks
 
 
-def run(top_n=20, buy_level_top_n=15):
+def run(top_n=20, buy_level_top_n=15, breakout_top_n=20):
     print("Running NSE daily watchlist scan...")
 
     price_data, benchmark_close = fetch_universe_history()
     if not price_data:
         print("No price data fetched. Sending empty digest and exiting.")
-        send_email([], [])
+        send_email([], [], [])
         return
 
     # --- Momentum watchlist (stage-2 uptrends, chase-with-the-trend) ---
@@ -29,11 +30,17 @@ def run(top_n=20, buy_level_top_n=15):
     buy_ranked = rank_buy_level(buy_rows, top_n=buy_level_top_n)
     print(f"{len(buy_ranked)} tickers passed the buy-level filters.")
 
+    # --- EMA trend + tight-range breakout watchlist ---
+    breakout_rows = compute_ema_breakout_metrics(price_data)
+    breakout_ranked = rank_ema_breakout(breakout_rows, top_n=breakout_top_n)
+    print(f"{len(breakout_ranked)} tickers passed the EMA breakout filters.")
+
     nifty_price = float(benchmark_close.iloc[-1]) if benchmark_close is not None and len(benchmark_close) else None
 
-    send_email(ranked, buy_ranked)
+    send_email(ranked, buy_ranked, breakout_ranked)
     record_picks(ranked, nifty_price_at_pick=nifty_price, strategy="momentum")
     record_picks(buy_ranked, nifty_price_at_pick=nifty_price, strategy="buy_level")
+    record_picks(breakout_ranked, nifty_price_at_pick=nifty_price, strategy="ema_breakout")
     print("Done.")
 
 
