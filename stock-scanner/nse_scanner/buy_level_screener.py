@@ -17,6 +17,9 @@ Hard filters (a candidate must pass all of these):
   - RSI(14) below RSI_CEILING: not already running
   - close within NEAR_LOW_CEILING of the 52-week low: actually near the
     floor, not halfway down and still falling fast
+  - today's volume at least MIN_VOL_BREAKOUT_RATIO times the trailing
+    20-day average: demand actually showing up today, not just price
+    sitting near the low on ordinary volume
 
 Reversal evidence (scored, not filtered -- these are the "first signs"):
   - basing: 20-day realized volatility contracting vs the prior 20 days
@@ -49,6 +52,10 @@ RSI_CEILING = 55.0         # not already running. A stock basing sideways after 
                            # would exclude names at the exact moment the first
                            # reversal evidence appears.
 NEAR_LOW_CEILING_PCT = 25.0  # close must be within this % of the 52w low
+MIN_VOL_BREAKOUT_RATIO = 2.0  # today's volume must be >= 2x the trailing 20d
+                               # average -- same breakout signature the momentum
+                               # screener requires, applied here to today's demand
+                               # rather than a chase-the-trend confirmation
 
 # --- Reversal-evidence lookbacks ---
 HAMMER_LOOKBACK_DAYS = 10
@@ -182,6 +189,10 @@ def compute_buy_level_metrics(price_data):
         dma200 = float(close.tail(200).mean())
         avg_daily_turnover = float((close.tail(20) * volume.tail(20)).mean())
 
+        vol_avg_20 = float(volume.tail(21).iloc[:-1].mean())
+        vol_today = float(volume.iloc[-1])
+        vol_breakout_ratio = (vol_today / vol_avg_20) if vol_avg_20 else 0.0
+
         if high_52w <= 0 or low_52w <= 0:
             continue
 
@@ -200,6 +211,7 @@ def compute_buy_level_metrics(price_data):
             "above_low_pct": round(above_low_pct, 2),
             "rsi14": round(rsi14, 2) if rsi14 is not None else None,
             "avg_daily_turnover": avg_daily_turnover,
+            "vol_breakout_ratio": round(vol_breakout_ratio, 2),
             "_basing": round(_basing_score(close), 2),
             "_selling_exhaustion": round(_selling_exhaustion_score(close, volume), 2),
             "_reclaim_progress": round(_reclaim_progress_score(close), 2),
@@ -220,6 +232,8 @@ def rank_buy_level(rows, top_n=15):
         if r["rsi14"] is None or r["rsi14"] >= RSI_CEILING:
             continue
         if r["above_low_pct"] > NEAR_LOW_CEILING_PCT:
+            continue
+        if r["vol_breakout_ratio"] < MIN_VOL_BREAKOUT_RATIO:
             continue
         survivors.append(r)
 
