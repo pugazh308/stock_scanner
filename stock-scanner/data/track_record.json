@@ -301,9 +301,9 @@
     "insider_score": 0.2916,
     "momentum_score": -5.288,
     "rel_strength_1m_at_pick": -2.03,
-    "evaluated": false,
-    "outcome_return_pct": null,
-    "outcome_rel_to_spy_pct": null
+    "evaluated": true,
+    "outcome_return_pct": -9.26,
+    "outcome_rel_to_spy_pct": -13.18
   },
   {
     "date_picked": "2026-08-01",
@@ -318,9 +318,9 @@
     "insider_score": 6.0,
     "momentum_score": -29.39,
     "rel_strength_1m_at_pick": -43.95,
-    "evaluated": false,
-    "outcome_return_pct": null,
-    "outcome_rel_to_spy_pct": null
+    "evaluated": true,
+    "outcome_return_pct": 19.72,
+    "outcome_rel_to_spy_pct": 15.79
   },
   {
     "date_picked": "2026-08-03",
@@ -335,9 +335,9 @@
     "insider_score": 24.6376,
     "momentum_score": 5.967,
     "rel_strength_1m_at_pick": -12.45,
-    "evaluated": false,
-    "outcome_return_pct": null,
-    "outcome_rel_to_spy_pct": null
+    "evaluated": true,
+    "outcome_return_pct": 3.84,
+    "outcome_rel_to_spy_pct": -0.08
   },
   {
     "date_picked": "2026-08-03",
@@ -352,9 +352,9 @@
     "insider_score": 24.9072,
     "momentum_score": 0.486,
     "rel_strength_1m_at_pick": -17.26,
-    "evaluated": false,
-    "outcome_return_pct": null,
-    "outcome_rel_to_spy_pct": null
+    "evaluated": true,
+    "outcome_return_pct": 5.4,
+    "outcome_rel_to_spy_pct": 1.48
   },
   {
     "date_picked": "2026-08-05",
