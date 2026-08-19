@@ -369,7 +369,7 @@
     "insider_score": 20.0,
     "momentum_score": 0.0,
     "rel_strength_1m_at_pick": null,
-    "evaluated": false,
+    "evaluated": true,
     "outcome_return_pct": null,
     "outcome_rel_to_spy_pct": null
   },
@@ -386,9 +386,9 @@
     "insider_score": 12.0455,
     "momentum_score": 1.316,
     "rel_strength_1m_at_pick": 1.0,
-    "evaluated": false,
-    "outcome_return_pct": null,
-    "outcome_rel_to_spy_pct": null
+    "evaluated": true,
+    "outcome_return_pct": 5.63,
+    "outcome_rel_to_spy_pct": 6.13
   },
   {
     "date_picked": "2026-08-07",
@@ -794,6 +794,23 @@
     "insider_score": 18.0375,
     "momentum_score": 49.595,
     "rel_strength_1m_at_pick": -6.36,
+    "evaluated": false,
+    "outcome_return_pct": null,
+    "outcome_rel_to_spy_pct": null
+  },
+  {
+    "date_picked": "2026-08-19",
+    "mode": "daily",
+    "ticker": "ASND",
+    "score": 21.7,
+    "price_at_pick": 248.85,
+    "spy_price_at_pick": null,
+    "is_cluster": false,
+    "avg_title_weight": 2.0,
+    "value_component": 9.8531,
+    "insider_score": 19.7062,
+    "momentum_score": 1.996,
+    "rel_strength_1m_at_pick": -1.16,
     "evaluated": false,
     "outcome_return_pct": null,
     "outcome_rel_to_spy_pct": null
