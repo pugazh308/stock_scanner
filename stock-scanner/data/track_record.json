@@ -814,5 +814,39 @@
     "evaluated": false,
     "outcome_return_pct": null,
     "outcome_rel_to_spy_pct": null
+  },
+  {
+    "date_picked": "2026-08-20",
+    "mode": "daily",
+    "ticker": "LBGJ",
+    "score": 3080.25,
+    "price_at_pick": 3.15,
+    "spy_price_at_pick": 769.06,
+    "is_cluster": true,
+    "avg_title_weight": 1.0,
+    "value_component": 1.026,
+    "insider_score": 1.539,
+    "momentum_score": 3078.71,
+    "rel_strength_1m_at_pick": 5147.1,
+    "evaluated": false,
+    "outcome_return_pct": null,
+    "outcome_rel_to_spy_pct": null
+  },
+  {
+    "date_picked": "2026-08-20",
+    "mode": "daily",
+    "ticker": "LIEN",
+    "score": 16.8,
+    "price_at_pick": 9.5,
+    "spy_price_at_pick": 769.06,
+    "is_cluster": false,
+    "avg_title_weight": 1.0,
+    "value_component": 11.328,
+    "insider_score": 11.328,
+    "momentum_score": 5.475,
+    "rel_strength_1m_at_pick": -5.26,
+    "evaluated": false,
+    "outcome_return_pct": null,
+    "outcome_rel_to_spy_pct": null
   }
 ]
