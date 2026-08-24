@@ -420,9 +420,9 @@
     "insider_score": 40.0,
     "momentum_score": -6.192,
     "rel_strength_1m_at_pick": -10.32,
-    "evaluated": false,
-    "outcome_return_pct": null,
-    "outcome_rel_to_spy_pct": null
+    "evaluated": true,
+    "outcome_return_pct": 3.12,
+    "outcome_rel_to_spy_pct": 4.1
   },
   {
     "date_picked": "2026-08-10",
@@ -437,9 +437,9 @@
     "insider_score": 15.0702,
     "momentum_score": -0.394,
     "rel_strength_1m_at_pick": 2.33,
-    "evaluated": false,
-    "outcome_return_pct": null,
-    "outcome_rel_to_spy_pct": null
+    "evaluated": true,
+    "outcome_return_pct": 11.88,
+    "outcome_rel_to_spy_pct": 12.86
   },
   {
     "date_picked": "2026-08-10",
@@ -454,9 +454,9 @@
     "insider_score": 1.2707,
     "momentum_score": 5.329,
     "rel_strength_1m_at_pick": 2.67,
-    "evaluated": false,
-    "outcome_return_pct": null,
-    "outcome_rel_to_spy_pct": null
+    "evaluated": true,
+    "outcome_return_pct": 0.72,
+    "outcome_rel_to_spy_pct": 1.69
   },
   {
     "date_picked": "2026-08-10",
@@ -471,9 +471,9 @@
     "insider_score": 40.0,
     "momentum_score": -6.192,
     "rel_strength_1m_at_pick": -10.32,
-    "evaluated": false,
-    "outcome_return_pct": null,
-    "outcome_rel_to_spy_pct": null
+    "evaluated": true,
+    "outcome_return_pct": 3.12,
+    "outcome_rel_to_spy_pct": 4.1
   },
   {
     "date_picked": "2026-08-10",
@@ -488,9 +488,9 @@
     "insider_score": 15.0702,
     "momentum_score": -0.394,
     "rel_strength_1m_at_pick": 2.33,
-    "evaluated": false,
-    "outcome_return_pct": null,
-    "outcome_rel_to_spy_pct": null
+    "evaluated": true,
+    "outcome_return_pct": 11.88,
+    "outcome_rel_to_spy_pct": 12.86
   },
   {
     "date_picked": "2026-08-10",
@@ -505,9 +505,9 @@
     "insider_score": 1.2707,
     "momentum_score": 5.329,
     "rel_strength_1m_at_pick": 2.67,
-    "evaluated": false,
-    "outcome_return_pct": null,
-    "outcome_rel_to_spy_pct": null
+    "evaluated": true,
+    "outcome_return_pct": 0.72,
+    "outcome_rel_to_spy_pct": 1.69
   },
   {
     "date_picked": "2026-08-11",
