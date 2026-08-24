@@ -950,5 +950,22 @@
     "evaluated": false,
     "outcome_return_pct": null,
     "outcome_rel_to_spy_pct": null
+  },
+  {
+    "date_picked": "2026-08-24",
+    "mode": "weekly",
+    "ticker": "UUU",
+    "score": 128.98,
+    "price_at_pick": 6.4,
+    "spy_price_at_pick": 765.72,
+    "is_cluster": false,
+    "avg_title_weight": 4.0,
+    "value_component": 3.6669,
+    "insider_score": 14.6675,
+    "momentum_score": 114.314,
+    "rel_strength_1m_at_pick": 69.82,
+    "evaluated": false,
+    "outcome_return_pct": null,
+    "outcome_rel_to_spy_pct": null
   }
 ]
