@@ -522,9 +522,9 @@
     "insider_score": 20.0,
     "momentum_score": -0.894,
     "rel_strength_1m_at_pick": -1.49,
-    "evaluated": false,
-    "outcome_return_pct": null,
-    "outcome_rel_to_spy_pct": null
+    "evaluated": true,
+    "outcome_return_pct": 18.53,
+    "outcome_rel_to_spy_pct": 19.77
   },
   {
     "date_picked": "2026-08-12",
@@ -964,6 +964,40 @@
     "insider_score": 14.6675,
     "momentum_score": 114.314,
     "rel_strength_1m_at_pick": 69.82,
+    "evaluated": false,
+    "outcome_return_pct": null,
+    "outcome_rel_to_spy_pct": null
+  },
+  {
+    "date_picked": "2026-08-25",
+    "mode": "daily",
+    "ticker": "PRE",
+    "score": 59.45,
+    "price_at_pick": 21.82,
+    "spy_price_at_pick": 763.47,
+    "is_cluster": false,
+    "avg_title_weight": 4.5,
+    "value_component": 10.04,
+    "insider_score": 45.1799,
+    "momentum_score": 14.269,
+    "rel_strength_1m_at_pick": 11.97,
+    "evaluated": false,
+    "outcome_return_pct": null,
+    "outcome_rel_to_spy_pct": null
+  },
+  {
+    "date_picked": "2026-08-25",
+    "mode": "daily",
+    "ticker": "VENU",
+    "score": -11.47,
+    "price_at_pick": 1.83,
+    "spy_price_at_pick": 763.47,
+    "is_cluster": false,
+    "avg_title_weight": 3.0,
+    "value_component": 0.0384,
+    "insider_score": 0.1151,
+    "momentum_score": -11.584,
+    "rel_strength_1m_at_pick": -21.97,
     "evaluated": false,
     "outcome_return_pct": null,
     "outcome_rel_to_spy_pct": null
