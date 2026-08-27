@@ -1,0 +1,19 @@
+{
+  "title_weights": {
+    "ceo": 2.925,
+    "cfo": 2.925,
+    "coo": 2.4375,
+    "pres": 2.4375,
+    "chairman": 1.95,
+    "cob": 1.95,
+    "dir": 1.4625,
+    "officer": 1.4625,
+    "vp": 1.17,
+    "gc": 0.975,
+    "10%": 0.6825
+  },
+  "value_divisor": 50000.0,
+  "cluster_bonus": 1.425,
+  "rel_strength_coef": 0.57,
+  "volume_trend_coef": 0.1
+}

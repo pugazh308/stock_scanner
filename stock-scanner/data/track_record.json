@@ -556,9 +556,9 @@
     "insider_score": 51.975,
     "momentum_score": -18.316,
     "rel_strength_1m_at_pick": -17.34,
-    "evaluated": false,
-    "outcome_return_pct": null,
-    "outcome_rel_to_spy_pct": null
+    "evaluated": true,
+    "outcome_return_pct": 3.92,
+    "outcome_rel_to_spy_pct": 4.16
   },
   {
     "date_picked": "2026-08-13",
@@ -573,9 +573,9 @@
     "insider_score": 12.6896,
     "momentum_score": 18.738,
     "rel_strength_1m_at_pick": -29.67,
-    "evaluated": false,
-    "outcome_return_pct": null,
-    "outcome_rel_to_spy_pct": null
+    "evaluated": true,
+    "outcome_return_pct": 3.28,
+    "outcome_rel_to_spy_pct": 3.52
   },
   {
     "date_picked": "2026-08-13",
@@ -590,9 +590,9 @@
     "insider_score": 14.9987,
     "momentum_score": -2.251,
     "rel_strength_1m_at_pick": 2.86,
-    "evaluated": false,
-    "outcome_return_pct": null,
-    "outcome_rel_to_spy_pct": null
+    "evaluated": true,
+    "outcome_return_pct": 10.96,
+    "outcome_rel_to_spy_pct": 11.2
   },
   {
     "date_picked": "2026-08-13",
@@ -607,9 +607,9 @@
     "insider_score": 3.0054,
     "momentum_score": -6.837,
     "rel_strength_1m_at_pick": -25.92,
-    "evaluated": false,
-    "outcome_return_pct": null,
-    "outcome_rel_to_spy_pct": null
+    "evaluated": true,
+    "outcome_return_pct": -3.31,
+    "outcome_rel_to_spy_pct": -3.07
   },
   {
     "date_picked": "2026-08-14",
@@ -1032,6 +1032,40 @@
     "insider_score": 60.0,
     "momentum_score": -6.824,
     "rel_strength_1m_at_pick": -14.44,
+    "evaluated": false,
+    "outcome_return_pct": null,
+    "outcome_rel_to_spy_pct": null
+  },
+  {
+    "date_picked": "2026-08-27",
+    "mode": "daily",
+    "ticker": "DGICA",
+    "score": 14.71,
+    "price_at_pick": 19.04,
+    "spy_price_at_pick": 770.67,
+    "is_cluster": false,
+    "avg_title_weight": 2.0,
+    "value_component": 7.433,
+    "insider_score": 14.866,
+    "momentum_score": -0.154,
+    "rel_strength_1m_at_pick": -6.6,
+    "evaluated": false,
+    "outcome_return_pct": null,
+    "outcome_rel_to_spy_pct": null
+  },
+  {
+    "date_picked": "2026-08-27",
+    "mode": "daily",
+    "ticker": "HKHC",
+    "score": 1.45,
+    "price_at_pick": 26.0,
+    "spy_price_at_pick": 770.67,
+    "is_cluster": false,
+    "avg_title_weight": 1.0,
+    "value_component": 0.265,
+    "insider_score": 0.265,
+    "momentum_score": 1.186,
+    "rel_strength_1m_at_pick": -9.76,
     "evaluated": false,
     "outcome_return_pct": null,
     "outcome_rel_to_spy_pct": null
