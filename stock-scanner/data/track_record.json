@@ -1086,5 +1086,22 @@
     "evaluated": false,
     "outcome_return_pct": null,
     "outcome_rel_to_spy_pct": null
+  },
+  {
+    "date_picked": "2026-08-31",
+    "mode": "weekly",
+    "ticker": "AAON",
+    "score": -12.26,
+    "price_at_pick": 75.085,
+    "spy_price_at_pick": 765.86,
+    "is_cluster": false,
+    "avg_title_weight": 2.3172,
+    "value_component": 0.6985,
+    "insider_score": 1.6185,
+    "momentum_score": -13.8764,
+    "rel_strength_1m_at_pick": -19.96,
+    "evaluated": false,
+    "outcome_return_pct": null,
+    "outcome_rel_to_spy_pct": null
   }
 ]
