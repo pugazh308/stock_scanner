@@ -760,9 +760,9 @@
     "insider_score": 60.0,
     "momentum_score": 9.757,
     "rel_strength_1m_at_pick": -23.63,
-    "evaluated": false,
-    "outcome_return_pct": null,
-    "outcome_rel_to_spy_pct": null
+    "evaluated": true,
+    "outcome_return_pct": 0.81,
+    "outcome_rel_to_spy_pct": 2.01
   },
   {
     "date_picked": "2026-08-18",
@@ -777,9 +777,9 @@
     "insider_score": 63.7738,
     "momentum_score": 4.232,
     "rel_strength_1m_at_pick": -6.61,
-    "evaluated": false,
-    "outcome_return_pct": null,
-    "outcome_rel_to_spy_pct": null
+    "evaluated": true,
+    "outcome_return_pct": -5.1,
+    "outcome_rel_to_spy_pct": -3.91
   },
   {
     "date_picked": "2026-08-18",
@@ -794,9 +794,9 @@
     "insider_score": 18.0375,
     "momentum_score": 49.595,
     "rel_strength_1m_at_pick": -6.36,
-    "evaluated": false,
-    "outcome_return_pct": null,
-    "outcome_rel_to_spy_pct": null
+    "evaluated": true,
+    "outcome_return_pct": 2.7,
+    "outcome_rel_to_spy_pct": 3.9
   },
   {
     "date_picked": "2026-08-19",
@@ -1100,6 +1100,74 @@
     "insider_score": 1.6185,
     "momentum_score": -13.8764,
     "rel_strength_1m_at_pick": -19.96,
+    "evaluated": false,
+    "outcome_return_pct": null,
+    "outcome_rel_to_spy_pct": null
+  },
+  {
+    "date_picked": "2026-09-01",
+    "mode": "daily",
+    "ticker": "YQ",
+    "score": 5.17,
+    "price_at_pick": 1.96,
+    "spy_price_at_pick": 767.05,
+    "is_cluster": false,
+    "avg_title_weight": 1.3903,
+    "value_component": 0.1686,
+    "insider_score": 0.2345,
+    "momentum_score": 4.9356,
+    "rel_strength_1m_at_pick": 0.32,
+    "evaluated": false,
+    "outcome_return_pct": null,
+    "outcome_rel_to_spy_pct": null
+  },
+  {
+    "date_picked": "2026-09-01",
+    "mode": "daily",
+    "ticker": "FTCI",
+    "score": 4.2,
+    "price_at_pick": 2.35,
+    "spy_price_at_pick": 767.05,
+    "is_cluster": false,
+    "avg_title_weight": 1.0,
+    "value_component": 5.4383,
+    "insider_score": 5.4383,
+    "momentum_score": -1.2422,
+    "rel_strength_1m_at_pick": -15.78,
+    "evaluated": false,
+    "outcome_return_pct": null,
+    "outcome_rel_to_spy_pct": null
+  },
+  {
+    "date_picked": "2026-09-01",
+    "mode": "daily",
+    "ticker": "AMRC",
+    "score": 3.12,
+    "price_at_pick": 22.12,
+    "spy_price_at_pick": 767.05,
+    "is_cluster": false,
+    "avg_title_weight": 1.3903,
+    "value_component": 1.3278,
+    "insider_score": 1.846,
+    "momentum_score": 1.275,
+    "rel_strength_1m_at_pick": 3.75,
+    "evaluated": false,
+    "outcome_return_pct": null,
+    "outcome_rel_to_spy_pct": null
+  },
+  {
+    "date_picked": "2026-09-01",
+    "mode": "daily",
+    "ticker": "CZFS",
+    "score": 2.19,
+    "price_at_pick": 80.34,
+    "spy_price_at_pick": 767.05,
+    "is_cluster": false,
+    "avg_title_weight": 2.3172,
+    "value_component": 0.0366,
+    "insider_score": 0.0849,
+    "momentum_score": 2.1036,
+    "rel_strength_1m_at_pick": 2.4,
     "evaluated": false,
     "outcome_return_pct": null,
     "outcome_rel_to_spy_pct": null

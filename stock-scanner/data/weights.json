@@ -1,19 +1,19 @@
 {
   "title_weights": {
-    "ceo": 2.7806,
-    "cfo": 2.7806,
-    "coo": 2.3172,
-    "pres": 2.3172,
-    "chairman": 1.8537,
-    "cob": 1.8537,
-    "dir": 1.3903,
-    "officer": 1.3903,
-    "vp": 1.1122,
-    "gc": 0.9268,
-    "10%": 0.6488
+    "ceo": 2.7111,
+    "cfo": 2.7111,
+    "coo": 2.2593,
+    "pres": 2.2593,
+    "chairman": 1.8074,
+    "cob": 1.8074,
+    "dir": 1.3555,
+    "officer": 1.3555,
+    "vp": 1.0844,
+    "gc": 0.9036,
+    "10%": 0.6326
   },
   "value_divisor": 50000.0,
-  "cluster_bonus": 1.2861,
-  "rel_strength_coef": 0.5144,
+  "cluster_bonus": 1.2218,
+  "rel_strength_coef": 0.4887,
   "volume_trend_coef": 0.1
 }
