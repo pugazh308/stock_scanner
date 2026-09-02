@@ -811,8 +811,8 @@
     "insider_score": 19.7062,
     "momentum_score": 1.996,
     "rel_strength_1m_at_pick": -1.16,
-    "evaluated": false,
-    "outcome_return_pct": null,
+    "evaluated": true,
+    "outcome_return_pct": 4.58,
     "outcome_rel_to_spy_pct": null
   },
   {
